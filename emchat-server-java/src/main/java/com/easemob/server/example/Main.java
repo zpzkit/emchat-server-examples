@@ -40,12 +40,25 @@ public class Main {
         }
         fos.close();
 
-        /*
-		// Create a IM user
-		BodyWrapper userBody = new IMUserBody("User101", "123456", "HelloWorld");
-		user.createNewIMUserSingle(userBody);
+        String cursor = "MTQzNjgyOTEyMDpnR2tBQVFNQWdHa0FCZ0ZYdF84WmdBQ0FkUUFRY0ZXbVVwQlZFZWE0aUpzd0R6WDlCQUNBZFFBUWNGV21TSkJWRWVhMWRyZGNvSm9pUGdB";
+        Object o = chat.exportChatMessages(100l, cursor, "select+*+where+timestamp>1403164734226");
 
-		// Create some IM users
+        System.out.println(o);
+        // Create a IM user
+/*		BodyWrapper userBody = new IMUserBody("User101", "123456", "HelloWorld");
+		ResponseWrapper newIMUserSingle = (ResponseWrapper) user.createNewIMUserSingle(userBody);
+		if (newIMUserSingle.getResponseStatus() == 400){
+			System.out.println(((ObjectNode)newIMUserSingle.getResponseBody()).size());
+		}
+
+		String[] userNames = {"test", "1081"};
+		TextMessageBody textMessageBody = new TextMessageBody("users", userNames, "admin", null, "sever test");
+        textMessageBody.getBody();
+        Object o = message.sendMessage(textMessageBody);
+
+
+        System.out.println(o);
+        // Create some IM users
 		List<IMUserBody> users = new ArrayList<IMUserBody>();
 		users.add(new IMUserBody("User002", "123456", null));
 		users.add(new IMUserBody("User003", "123456", null));
@@ -59,8 +72,7 @@ public class Main {
 		user.getIMUsersByUserName("FakeUser001");
 		
 		// Get 12 users
-		user.getIMUsersBatch(null, null);
-		*/
+		user.getIMUsersBatch(null, null);*/
 	}
 
 }

@@ -67,7 +67,7 @@ public class HttpClientRestAPIInvoker implements RestAPIInvoker {
 			String msg = MessageTemplate.print(MessageTemplate.BLANK_OBJ_MSG, new String[]{"Parameter header"});
 			responseWrapper.addError(msg);
 		}
-		if( null == body || !body.validate() ) {
+		if((method.equals(HTTPMethod.METHOD_POST) || method.equals(HTTPMethod.METHOD_PUT)) && (null == body || !body.validate()) ) {
 			responseWrapper.addError(MessageTemplate.INVALID_BODY_MSG);
 		}
 		
@@ -179,6 +179,7 @@ public class HttpClientRestAPIInvoker implements RestAPIInvoker {
 
 			response = client.execute(httppost);
 
+            responseWrapper = readResponse(responseWrapper, response, false);
 		} catch (Exception e) {
 			responseWrapper.addError(e.getMessage());
             return responseWrapper;
@@ -189,7 +190,6 @@ public class HttpClientRestAPIInvoker implements RestAPIInvoker {
 			} catch (IOException e) {}
         }
 
-        responseWrapper = readResponse(responseWrapper, response, false);
 
         log.debug("=============Response=============");
         log.debug(responseWrapper.toString());
@@ -269,6 +269,7 @@ public class HttpClientRestAPIInvoker implements RestAPIInvoker {
                 return responseWrapper;
             } catch (IOException e) {
                 responseWrapper.addError(e.getMessage());
+                e.printStackTrace();
                 return responseWrapper;
             }
 

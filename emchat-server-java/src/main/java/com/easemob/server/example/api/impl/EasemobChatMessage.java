@@ -15,8 +15,9 @@ public class EasemobChatMessage extends EasemobRestAPI implements ChatMessageAPI
         String url = getContext().getSeriveURL() + getResourceRootURI();
         HeaderWrapper header = HeaderHelper.getDefaultHeaderWithToken();
         QueryWrapper queryWrapper = QueryWrapper.newInstance().addLimit(limit).addCursor(cursor).addQueryLang(query);
+        url = url+"?"+queryWrapper.toUri();
 
-        return getInvoker().sendRequest(HTTPMethod.METHOD_DELETE, url, header, null, queryWrapper);
+        return getInvoker().sendRequest(HTTPMethod.METHOD_GET, url, header, null, queryWrapper);
     }
 
     @Override

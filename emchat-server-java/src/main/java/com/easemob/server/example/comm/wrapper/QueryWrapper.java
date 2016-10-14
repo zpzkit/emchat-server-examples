@@ -1,5 +1,7 @@
 package com.easemob.server.example.comm.wrapper;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,5 +58,29 @@ public class QueryWrapper {
 		}
 		
 		return sb.toString();
+	}
+
+	public String toUri(){
+		StringBuffer sb = new StringBuffer();
+		for( NameValuePair query : queries ) {
+			sb.append("&").append(query.getName()).append("=").append(this.encodeUrl(query.getValue(), 2));
+		}
+
+		return sb.toString().substring(1, sb.toString().length());
+	}
+
+	public static String encodeUrl(String src, int type){
+		String gb2312 = null;
+		try {
+			if (type == 1){
+				gb2312 = URLEncoder.encode(src, "gb2312");
+			}else if (type == 2){
+				gb2312 = URLEncoder.encode(src, "utf8");
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		return gb2312;
 	}
 }
